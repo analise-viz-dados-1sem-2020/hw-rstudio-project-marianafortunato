@@ -1,6 +1,16 @@
-x <- 5
-pdf(*figure/viz.pdf*)
+library(magrittr); library(ggplot2)
 
-plot(1x)
+source("R/utils.R")
 
-dev.off()
+x <- "Franscisco"
+
+df <- get_freq_nome(x)
+
+df %>% 
+  ggplot(aes(x = decada, y = freq)) + 
+  geom_point() + 
+  geom_line(aes(group = 1)) +
+  labs(title = paste("Nascimentos por década", x, sep = " - ")) +
+  xlab("Década de nascimento") +
+  ylab("Pessoas") +
+  ggsave("figures/nomes-decada.pdf")
